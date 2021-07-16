@@ -8,7 +8,7 @@ class Image:
     __log = LOG(__name__)
     cap = None
 
-    def __init__(self, video=False, path=None):
+    def __init__(self, video=False, path=None) -> None:
         if(video == True and path == None):
             self.cap = cv2.VideoCapture(0)
             if(not self.cap.isOpened()):
@@ -18,10 +18,10 @@ class Image:
         elif(video == True and path is not None):
             self.cap = cv2.VideoCapture(path)
     
-    def get_frame(self):
+    def get_frame(self) -> cv2.CV_64F:
         return self.frame
 
-    def set_frame(self, video=False, path=None) -> cv2.CV_64F:
+    def read_frame(self, video=False, path=None) -> cv2.CV_64F:
 
         if(video == True):
             ret, self.frame = self.cap.read()
@@ -33,7 +33,7 @@ class Image:
 
         return self.frame
     
-    def show_frame(self, frame=None, window_name="frame", time=33):
+    def show_frame(self, frame=None, window_name="frame", time=33) -> int:
         if(frame is None):
             cv2.imshow(window_name, self.get_frame())
         else:
@@ -41,5 +41,6 @@ class Image:
         key = cv2.waitKey(time)
         return key
 
-    def resize_frame(self, h=500, w=500):
-        self.frame = resize(self.frame, height=h, width=w)
+    def resize_frame(self, h=500, w=500) -> cv2.CV_64F:
+        self.frame = resize(self.frame, height=h)
+        return self.frame
